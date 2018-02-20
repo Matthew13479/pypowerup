@@ -64,7 +64,7 @@ class Intake:
         # have actuated, they stay actuated without drawing power.
         self.last_clamp_on = self.clamp_on
         self.last_push_on = self.push_on
-        self.last_extension_on = self.extension_on
+        self.tension_on = self.extension_on
 
     def rotate(self, value: float):
         """Set the output of the intake motors."""

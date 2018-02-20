@@ -1,9 +1,11 @@
 from magicbot import StateMachine, state, timed_state
 from components.intake import Intake
+from components.lifter import Lifter
 
 
 class IntakeAutomation(StateMachine):
     intake: Intake
+    lifter: Lifter
 
     def on_enable(self):
         if not self.intake.arms_out:
@@ -23,19 +25,20 @@ class IntakeAutomation(StateMachine):
         self.intake.extend(True)
         self.intake.clamp(False)
         self.intake.push(False)
-        # if self.intake.are_wheels_contacting_cube() and state_tm > 0.5:
-        if self.intake.is_cube_contained() and state_tm > 0.5:
+        if self.intake.is_cube_contained() and state_tm > 0.2:
             self.next_state("pulling_in_cube")
 
-    @timed_state(must_finish=True, duration=1, next_state="grab_cube")
+    @timed_state(must_finish=True, duration=0.5, next_state="grab_cube")
     def pulling_in_cube(self):
         self.intake.extend(False)
         self.intake.rotate(-1)
 
     @state(must_finish=True)
-    def grab_cube(self):
+    def grab_cube(self, state_tm):
         self.intake.clamp(True)
         self.intake.push(False)
+        if state_tm > 0.01:
+            self.lifter.move(0.1)
         self.next_state("stop")
 
     @state(must_finish=True)

@@ -49,13 +49,13 @@ class IntakeAutomation(StateMachine):
         if not self.intake.is_cube_contained():
             self.next_state("push_out_cube")
 
-    @timed_state(must_finish=True, duration=1, next_state="stop")
+    @timed_state(must_finish=True, duration=0.5, next_state="stop")
     def push_out_cube(self):
         self.intake.rotate(1)
         self.intake.extend(False)
         self.intake.push(False)
 
-    @timed_state(must_finish=True, duration=0.4, next_state="reset_containment")
+    @timed_state(must_finish=True, duration=0.2, next_state="reset_containment")
     def eject_cube(self):
         self.intake.clamp(False)
         self.intake.push(True)

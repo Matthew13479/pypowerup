@@ -1,7 +1,6 @@
 import ctre
 import magicbot
 import wpilib
-from robotpy_ext.common_drivers.distance_sensors import SharpIRGP2Y0A41SK0F
 from components.range_finder import RangeFinder
 
 
@@ -11,8 +10,6 @@ class Intake:
     clamp_arm: wpilib.Solenoid
     intake_kicker: wpilib.Solenoid
     left_extension: wpilib.Solenoid
-    left_infrared: SharpIRGP2Y0A41SK0F
-    right_infrared: SharpIRGP2Y0A41SK0F
     right_extension: wpilib.DoubleSolenoid
     range_finder: RangeFinder
 

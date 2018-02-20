@@ -39,6 +39,7 @@ class IntakeAutomation(StateMachine):
         self.intake.push(False)
         if state_tm > 0.01:
             self.lifter.move(0.1)
+            self.intake.extend(False)
         self.next_state("stop")
 
     @state(must_finish=True)
